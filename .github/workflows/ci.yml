@@ -1,0 +1,25 @@
+name: Basic CI Check
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Basic Repository Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify repository
+        run: |
+          echo "Repository checked out successfully."
+          test -n "$(find . -type f -not -path './.git/*' -print -quit)"
+          echo "Basic repository check passed."
